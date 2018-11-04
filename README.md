@@ -10,6 +10,8 @@ To use, simply put these 2 lines below where you import the `docsify.min.js` fil
 <script src="//cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script> 
 <!-- This is the source code of the pdf embed plugin -->
 <script src="path-to-file/docsify-pdf-embed.js"></script>
+<!-- or use this if you are not hosting the file yourself -->
+<script src="//unpkg.com/docsify-pdf-embed-plugin/src/docsify-pdf-embed.js"></script>
 ```
 
 
@@ -86,7 +88,7 @@ var renderer_func = function(code, lang, base=null) {
 	if(pdf_renderer(code, lang, true)){
 	   return pdf_renderer(code, lang, false);
 	}
-    /* SECTION START: Put other custom code rendering functions here
+    	/* SECTION START: Put other custom code rendering functions here
 	
 	i.e. If the language of the code block is LaTex, 
 	put the code below to replace original code block with the text: 
