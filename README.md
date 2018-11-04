@@ -39,12 +39,12 @@ If you have custom parsing rules for code section of the markdown file (shown be
 
 ```javascript
 window.$docsify = {
-	name: 'some name',
+    name: 'some name',
     repo: 'some git repository',
     homepage: 'some_homepage.md',
     notFoundPage: 'some_404_page.md',
     markdown: {
- 		//If you have defined the follow section, 
+ 	//If you have defined the follow section, 
         //then you need to follow the steps in the next section.
         //(only the code section matters in this plugin)
         /* SECTION START
