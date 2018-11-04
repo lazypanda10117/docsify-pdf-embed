@@ -1,6 +1,6 @@
 {
   "name": "docsify-pdf-embed-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple plugin for embedding PDF in Docsify",
   "main": "src/docsify-pdf-embed.js",
   "scripts": {
