@@ -70,7 +70,7 @@ var renderer_func = function(code, lang, base=null) {
 	var pdf_renderer = function(code, lang, verify) {
 		function unique_id_generator(){
 			function rand_gen(){
-				return Math.floor((Math.random()) * 65536).toString(16).substring(1);
+				return Math.floor((Math.random()+1) * 65536).toString(16).substring(1);
 			}
 			return rand_gen() + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + rand_gen() + rand_gen();
 		}
@@ -78,8 +78,17 @@ var renderer_func = function(code, lang, base=null) {
 			if(verify){
 				return true;
 			}else{
+				var divId = "markdown_code_pdf_container_" + unique_id_generator().toString();
+				var container_list = new Array();
+				if(localStorage.getItem('pdf_container_list')){
+					container_list = JSON.parse(localStorage.getItem('pdf_container_list'));	
+				}
+				container_list.push({"pdf_location": code, "div_id": divId});
+				localStorage.setItem('pdf_container_list', JSON.stringify(container_list));
 				return (
-					'<div style="height:'+ PDF_VIEWER_HEIGHT +';" id="markdown_code_pdf_container_'+ unique_id_generator().toString() +'">'+ code +'</div>'
+					'<div style="margin-top:'+ PDF_MARGIN_TOP +'; margin-bottom:'+ PDF_MARGIN_BOTTOM +';" id="'+ divId +'">'
+						+ '<a href="'+ code + '"> Link </a> to ' + code +
+					'</div>'
 				);
 			} 
 		}
@@ -88,17 +97,16 @@ var renderer_func = function(code, lang, base=null) {
 	if(pdf_renderer(code, lang, true)){
 	   return pdf_renderer(code, lang, false);
 	}
-    	/* SECTION START: Put other custom code rendering functions here
-	
-	i.e. If the language of the code block is LaTex, 
-	put the code below to replace original code block with the text: 
-	'Using LaTex is much better than handwriting!' inside a div container.
+	/* SECTION START: Put other custom code rendering functions here
+		i.e. If the language of the code block is LaTex, 
+		put the code below to replace original code block with the text: 
+		'Using LaTex is much better than handwriting!' inside a div container.
 
 		if (lang == "latex") {
 			return ('<div class="container">Using LaTex is much better than handwriting!</div>');
 		}
-		
- 	SECTION END */
+
+	SECTION END */
 	return (base ? base : this.origin.code.apply(this, arguments));
 }
 ```
