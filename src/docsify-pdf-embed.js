@@ -60,6 +60,10 @@ const PDF_MARGIN_BOTTOM = '5rem';
 	var doc_md_rend = doc_md.renderer = (window.$docsify.markdown.renderer || {});
 	doc_md_rend.code = (doc_md_rend.code ? doc_md_rend.code : renderer_func);
 
+	// Allowing Docsify to execute the script to embed PDF
+	window.$docsify.executeScript = true;
+
+	// Linking Docsift to the PDF plugin
 	window.$docsify.plugins = [
 		function(hook, vm) {
 			hook.init(function() {
@@ -74,7 +78,7 @@ const PDF_MARGIN_BOTTOM = '5rem';
 					container_list.forEach(function(container){
 						html += '\
 						var options = {\
-							fallbackLink: "<p>This is a <a href='+ container['pdf_location'] +'>fallback link</a></p>",\
+							fallbackLink: "<p>This is a <a href="'+ container['pdf_location'] +'"">fallback link</a> for the PDF you are tying to access.</p>",\
 							height: "'+ PDF_VIEWER_HEIGHT +'",\
 							width: "'+ PDF_VIEWER_WIDTH +'",\
 						};\
