@@ -1,5 +1,8 @@
 const DEBUG = 1;
+const PDF_VIEWER_WIDTH = '100%';
 const PDF_VIEWER_HEIGHT = '50rem';
+const PDF_MARGIN_TOP = '2rem';
+const PDF_MARGIN_BOTTOM = '5rem';
 
 ! function() {
 	var verbose_log = function(log){
@@ -12,7 +15,7 @@ const PDF_VIEWER_HEIGHT = '50rem';
 		var pdf_renderer = function(code, lang, verify) {
 			function unique_id_generator(){
 				function rand_gen(){
-					return Math.floor((Math.random()) * 65536).toString(16).substring(1);
+					return Math.floor((Math.random()+1) * 65536).toString(16).substring(1);
 				}
 				return rand_gen() + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + rand_gen() + rand_gen();
 			}
@@ -20,8 +23,17 @@ const PDF_VIEWER_HEIGHT = '50rem';
 				if(verify){
 					return true;
 				}else{
+					var divId = "markdown_code_pdf_container_" + unique_id_generator().toString();
+					var container_list = new Array();
+					if(localStorage.getItem('pdf_container_list')){
+						container_list = JSON.parse(localStorage.getItem('pdf_container_list'));	
+					}
+					container_list.push({"pdf_location": code, "div_id": divId});
+					localStorage.setItem('pdf_container_list', JSON.stringify(container_list));
 					return (
-						'<div style="height:'+ PDF_VIEWER_HEIGHT +';" id="markdown_code_pdf_container_'+ unique_id_generator().toString() +'">'+ code +'</div>'
+						'<div style="margin-top:'+ PDF_MARGIN_TOP +'; margin-bottom:'+ PDF_MARGIN_BOTTOM +';" id="'+ divId +'">'
+							+ code +
+						'</div>'
 					);
 				} 
 			}
@@ -31,10 +43,9 @@ const PDF_VIEWER_HEIGHT = '50rem';
 		   return pdf_renderer(code, lang, false);
 		}
 	    /* SECTION START: Put other custom code rendering functions here
-		
-		i.e. If the language of the code block is LaTex, 
-		put the code below to replace original code block with the text: 
-		'Using LaTex is much better than handwriting!' inside a div container.
+			i.e. If the language of the code block is LaTex, 
+			put the code below to replace original code block with the text: 
+			'Using LaTex is much better than handwriting!' inside a div container.
 
 			if (lang == "latex") {
 				return ('<div class="container">Using LaTex is much better than handwriting!</div>');
@@ -56,25 +67,22 @@ const PDF_VIEWER_HEIGHT = '50rem';
 			});
 			hook.afterEach(function(html, next) {
 				verbose_log('PDF Code Block Loader Plugin After Hook Initialized');
-				search_exp = /<div style=".+;" id="markdown_code_pdf_container_(([a-z]|\d)+[-]){4}([a-z]|\d)+">.+(\.pdf)<\/div>/g;
-				
-				/// Regex to be improved when positive lookbehind is supported
-				pdf_search_approx = /">.+(?=<\/div>)/;
-				element_id_search_approx = /id=".+(?=">)/;
-
-				while(true){
-					search_match = search_exp.exec(html);
-					if(search_match){
-						exact_text = search_match[0];
-						pdf_search_result = pdf_search_approx.exec(exact_text);
-						element_id_search_result = element_id_search_approx.exec(exact_text);
-						pdf_location = pdf_search_result[0].substring(2);
-						element_id = element_id_search_result[0].substring(4);
-						html += '<script>PDFObject.embed("'+ pdf_location +'", "#' + element_id +'")<\/script>'; 
-					}else{
-						break;
-					}
+				container_list = JSON.parse(localStorage.getItem('pdf_container_list'));
+				verbose_log(container_list);
+				if(container_list){
+					html += '<script>';
+					container_list.forEach(function(container){
+						html += '\
+						var options = {\
+							fallbackLink: "<p>This is a <a href='+ container['pdf_location'] +'>fallback link</a></p>",\
+							height: "'+ PDF_VIEWER_HEIGHT +'",\
+							width: "'+ PDF_VIEWER_WIDTH +'",\
+						};\
+						PDFObject.embed("'+ container['pdf_location'] +'", "#'+ container['div_id'] +'", options);';
+					});
+					html += '<\/script>';
 				}
+				localStorage.clear();
 				next(html);
 			});
 		}
