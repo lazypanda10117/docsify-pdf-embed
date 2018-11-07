@@ -1,4 +1,4 @@
-const DEBUG = 1;
+const DEBUG = 0;
 const PDF_VIEWER_WIDTH = '100%';
 const PDF_VIEWER_HEIGHT = '50rem';
 const PDF_MARGIN_TOP = '2rem';
@@ -32,7 +32,7 @@ const PDF_MARGIN_BOTTOM = '5rem';
 					localStorage.setItem('pdf_container_list', JSON.stringify(container_list));
 					return (
 						'<div style="margin-top:'+ PDF_MARGIN_TOP +'; margin-bottom:'+ PDF_MARGIN_BOTTOM +';" id="'+ divId +'">'
-							+ code +
+							+ '<a href="'+ code + '"> Link </a> to ' + code +
 						'</div>'
 					);
 				} 
@@ -42,7 +42,7 @@ const PDF_MARGIN_BOTTOM = '5rem';
 		if(pdf_renderer(code, lang, true)){
 		   return pdf_renderer(code, lang, false);
 		}
-	    /* SECTION START: Put other custom code rendering functions here
+		/* SECTION START: Put other custom code rendering functions here
 			i.e. If the language of the code block is LaTex, 
 			put the code below to replace original code block with the text: 
 			'Using LaTex is much better than handwriting!' inside a div container.
@@ -51,7 +51,7 @@ const PDF_MARGIN_BOTTOM = '5rem';
 				return ('<div class="container">Using LaTex is much better than handwriting!</div>');
 			}
 			
-	 	SECTION END */
+		SECTION END */
 		return (base ? base : this.origin.code.apply(this, arguments));
 	}
 
@@ -78,15 +78,14 @@ const PDF_MARGIN_BOTTOM = '5rem';
 					container_list.forEach(function(container){
 						html += '\
 						var options = {\
-							fallbackLink: "<p>This is a <a href="'+ container['pdf_location'] +'"">fallback link</a> for the PDF you are tying to access.</p>",\
 							height: "'+ PDF_VIEWER_HEIGHT +'",\
-							width: "'+ PDF_VIEWER_WIDTH +'",\
+							width: "'+ PDF_VIEWER_WIDTH +'"\
 						};\
 						PDFObject.embed("'+ container['pdf_location'] +'", "#'+ container['div_id'] +'", options);';
 					});
 					html += '<\/script>';
 				}
-				localStorage.clear();
+				localStorage.removeItem('pdf_container_list');
 				next(html);
 			});
 		}
