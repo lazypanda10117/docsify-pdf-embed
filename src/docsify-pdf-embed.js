@@ -18,7 +18,7 @@ const PDF_MARGIN_BOTTOM = '5rem';
 	};
 
 	var url_check = function(url_str) {
-		var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+		var expression = /^(http|https):\/\/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 		return url_str.match(expression);
 	}
 
