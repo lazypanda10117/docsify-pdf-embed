@@ -94,11 +94,11 @@ const PDF_MARGIN_BOTTOM = '5rem';
 				if(container_list){
 					// Handling mobile pdf rendering
 					if(mobile_view){
+						html += '<script>';
 						container_list.forEach(function(container){
 							var absolute_pdf_location = url_check(container['pdf_location']) ? container['pdf_location'] : build_absolute_path(container['pdf_location']);
 							var view_location = "https://mozilla.github.io/pdf.js/web/viewer.html?file=" + absolute_pdf_location;
 							var iframe_id = container['div_id'].concat('-iframe');
-							html += '<script type="text/javascript">';
 							html += '\
 									document.getElementById("'+ container['div_id'] +'").innerHTML = \
 									\'<iframe \
