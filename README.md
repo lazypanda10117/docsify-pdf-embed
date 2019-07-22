@@ -74,7 +74,7 @@ var renderer_func = function(code, lang, base=null) {
 			}
 			return rand_gen() + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + rand_gen() + rand_gen();
 		}
-		if(!lang.localeCompare('pdf', 'en', {sensitivity: 'base'})){
+		if(lang && !lang.localeCompare('pdf', 'en', {sensitivity: 'base'})){
 			if(verify){
 				return true;
 			}else{
