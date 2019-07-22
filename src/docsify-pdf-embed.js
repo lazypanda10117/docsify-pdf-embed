@@ -34,7 +34,7 @@ const PDF_MARGIN_BOTTOM = '5rem';
 				}
 				return rand_gen() + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + '-' + rand_gen() + rand_gen() + rand_gen();
 			}
-			if(!lang.localeCompare('pdf', 'en', {sensitivity: 'base'})){
+			if(lang && !lang.localeCompare('pdf', 'en', {sensitivity: 'base'})){
 				if(verify){
 					return true;
 				}else{
