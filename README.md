@@ -22,9 +22,9 @@ Then, whenever you want to embed a PDF, type the following in the `.md` file tha
 ### Here are some of your previous markdown contents
 blah blah blah
 
-​```pdf
+```pdf
 	path-to-the-pdf-file
-​```
+```
 ```
 
 
