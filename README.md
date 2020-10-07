@@ -24,7 +24,7 @@ blah blah blah
 
 ```pdf
 	path-to-the-pdf-file
-```
+(``` to close the codeblock)
 ```
 
 
