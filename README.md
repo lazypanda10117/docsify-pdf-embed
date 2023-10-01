@@ -7,7 +7,7 @@ To use, simply put these 2 lines below where you import the `docsify.min.js` fil
 
 ```html
 <!-- PDFObject.js is a required dependency of this plugin -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js"></script>
 <!-- This is the source code of the pdf embed plugin -->
 <script src="path-to-file/docsify-pdf-embed.js"></script>
 <!-- or use this if you are not hosting the file yourself -->
@@ -63,10 +63,10 @@ window.$docsify = {
 
 #### Quick fix for the above problem:
 
-Put the block of code inside the `code: function(code, lang){ //put it here }` (the part that is mentioned above). Then put your previously defined custom parsing rules for markdown code section in the section mentioned in the comment block below.
+Replace the block of code with the `code: function(code, lang){  }` (the part that is mentioned above). Then put your previously defined custom parsing rules for markdown code section in the section mentioned in the comment block below.
 
 ```javascript
-var renderer_func = function(code, lang, base=null) { 
+code: function (code, lang, base = null) {
 	var pdf_renderer = function(code, lang, verify) {
 		function unique_id_generator(){
 			function rand_gen(){
@@ -86,8 +86,8 @@ var renderer_func = function(code, lang, base=null) {
 				container_list.push({"pdf_location": code, "div_id": divId});
 				localStorage.setItem('pdf_container_list', JSON.stringify(container_list));
 				return (
-					'<div style="margin-top:'+ PDF_MARGIN_TOP +'; margin-bottom:'+ PDF_MARGIN_BOTTOM +';" id="'+ divId +'">'
-						+ '<a href="'+ code + '"> Link </a> to ' + code +
+					'<div style="margin-top:' +PDF_MARGIN_TOP +'; margin-bottom:' + PDF_MARGIN_BOTTOM + ';" id="' + divId + '">' +
+						'<embed src="' + code + '"style="width:' + config.pdfobject.width + ';height:' + config.pdfobject.height + '">' +
 					'</div>'
 				);
 			} 
@@ -98,8 +98,8 @@ var renderer_func = function(code, lang, base=null) {
 	   return pdf_renderer(code, lang, false);
 	}
 	/* SECTION START: Put other custom code rendering functions here
-		i.e. If the language of the code block is LaTex, 
-		put the code below to replace original code block with the text: 
+		i.e., If the language of the code block is LaTex, 
+		put the code below to replace the original code block with the text: 
 		'Using LaTex is much better than handwriting!' inside a div container.
 
 		if (lang == "latex") {
@@ -113,7 +113,7 @@ var renderer_func = function(code, lang, base=null) {
 
 
 
-Congrats! Now you have PDF embedding functionality for your use cases of Docsify.
+Congrats! Now, you have PDF embedding functionality for your use cases of Docsify.
 
 
 
