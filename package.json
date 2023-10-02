@@ -1,27 +1,27 @@
 {
-  "name": "docsify-pdf-embed-plugin",
-  "version": "1.0.8",
-  "description": "A simple plugin for embedding PDF in Docsify",
-  "main": "src/docsify-pdf-embed.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lazypanda10117/docsify-pdf-embed-plugin.git"
-  },
-  "keywords": [
-    "docsify",
-    "docsify pdf",
-    "pdf plugin",
-    "docsify pdf embed",
-    "docsify plugin",
-    "docsify embed"
-  ],
-  "author": "Jeffrey Kam",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lazypanda10117/docsify-pdf-embed-plugin/issues"
-  },
-  "homepage": "https://github.com/lazypanda10117/docsify-pdf-embed-plugin#readme"
+    "name": "docsify-pdf-embed-plugin",
+    "version": "1.0.9",
+    "description": "A simple plugin for embedding PDF in Docsify",
+    "main": "src/docsify-pdf-embed.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lazypanda10117/docsify-pdf-embed-plugin.git"
+    },
+    "keywords": [
+        "docsify",
+        "docsify pdf",
+        "pdf plugin",
+        "docsify pdf embed",
+        "docsify plugin",
+        "docsify embed"
+    ],
+    "author": "Jeffrey Kam",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/lazypanda10117/docsify-pdf-embed-plugin/issues"
+    },
+    "homepage": "https://github.com/lazypanda10117/docsify-pdf-embed-plugin#readme"
 }
