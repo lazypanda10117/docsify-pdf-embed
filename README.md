@@ -7,7 +7,7 @@ To use, simply put these 2 lines below where you import the `docsify.min.js` fil
 
 ```html
 <!-- PDFObject.js is a required dependency of this plugin -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js"></script> 
 <!-- This is the source code of the pdf embed plugin -->
 <script src="path-to-file/docsify-pdf-embed.js"></script>
 <!-- or use this if you are not hosting the file yourself -->
@@ -33,9 +33,13 @@ blah blah blah
 
 
 
-#### Remarks for users who have defined custom markdown parsing rules:
+#### Configuration of docsify-pdf-embed
 
-If you have custom parsing rules for code section of the markdown file (shown below), then you need to follow the next section.
+~~Remarks for users who have defined custom markdown parsing rules:~~
+~~If you have custom parsing rules for code section of the markdown file (shown below), then you need to follow the next section.~~
+
+
+The following JavaScript configuration is for the Docsify documentation generator:
 
 ```javascript
 window.$docsify = {
@@ -43,27 +47,30 @@ window.$docsify = {
     repo: 'some git repository',
     homepage: 'some_homepage.md',
     notFoundPage: 'some_404_page.md',
-    markdown: {
- 	//If you have defined the follow section, 
-        //then you need to follow the steps in the next section.
-        //(only the code section matters in this plugin)
-        /* SECTION START
-        	
-            code: function(code, lang){
-            	some custom functions here
-            	return some_custom_results;
-            }
-        	
-        SECTION END */
-    }
+	...
+	pdf_embed: {
+		DEBUG: false,
+		viewerWidth: '100%',
+		viewerHeight: '50rem',
+		marginTop: '2rem',
+		marginBottom: '5rem',
+	}
 }
 ```
 
+The pdf_embed configuration object allows you to embed PDFs into your Docsify documentation. 
+
+The following options are available:
+- DEBUG: Whether to enable debug mode. (Default: false)
+- viewerWidth: The width of the PDF viewer. (Default: 100%)
+- viewerHeight: The height of the PDF viewer. (Default: 50rem)
+- marginTop: The margin at the top of the PDF viewer. (Default: 2rem)
+- marginBottom: The margin at the bottom of the PDF viewer. (Default: 5rem)
 
 
-#### Quick fix for the above problem:
+#### ~~Quick fix for the above problem:~~ Now Compatible with the previously defined custom parsing rules for the markdown code section
 
-Put the block of code inside the `code: function(code, lang){ //put it here }` (the part that is mentioned above). Then put your previously defined custom parsing rules for markdown code section in the section mentioned in the comment block below.
+~~Put the block of code inside the `code: function(code, lang){ //put it here }` (the part that is mentioned above). Then put your previously defined custom parsing rules for markdown code section in the section mentioned in the comment block below.~~
 
 ```javascript
 var renderer_func = function(code, lang, base=null) { 
